@@ -4,15 +4,11 @@ class Api::V1::ArticlesController < ApplicationController
 
   def index
     @articles = Article.all
+    
   end
 
   def show
-    @comments = Array.new
-    @article.comments.each do |comment|
-      author = {id: comment.author.id, fullname: comment.author.fullname}
-      comment = {id: comment.id, body: comment.body, author: author}
-      @comments.append(comment)
-    end
+    @comments = @article.comments
   end
 
   private
@@ -22,6 +18,14 @@ class Api::V1::ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :body, :author)
+    params.require(:article).permit(
+      :title, 
+      :body, 
+      :user,
+      :draft,
+      :batch_number,
+      :article_category,
+      :resource
+    )
   end
 end

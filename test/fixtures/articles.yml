@@ -3,9 +3,15 @@
 one:
   title: MyString
   body: MyText
-  author: one
+  user: one
+  article_category: one
+  batch_number: "FDG-1"
+  resource: one
 
 two:
   title: MyString
   body: MyText
-  author: two
+  user: two
+  article_category: two
+  batch_number: "FDG-2"
+  resource: two

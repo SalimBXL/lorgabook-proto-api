@@ -3,7 +3,9 @@
 one:
   fullname: MyString
   email: MyString
+  groupe: one
 
 two:
   fullname: MyString
   email: MyString
+  groupe: two

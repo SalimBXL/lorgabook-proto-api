@@ -3,9 +3,9 @@
 one:
   article: one
   body: MyText
-  author: one
+  user: one
 
 two:
   article: two
   body: MyText
-  author: two
+  user: two

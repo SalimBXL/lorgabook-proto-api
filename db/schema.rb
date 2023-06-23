@@ -26,33 +26,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_084957) do
     t.text "body"
     t.boolean "draft", default: true
     t.string "batch_number"
-    t.bigint "author_id", null: false
+    t.bigint "user_id", null: false
     t.bigint "article_category_id", null: false
     t.bigint "resource_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["article_category_id"], name: "index_articles_on_article_category_id"
-    t.index ["author_id"], name: "index_articles_on_author_id"
     t.index ["resource_id"], name: "index_articles_on_resource_id"
-  end
-
-  create_table "authors", force: :cascade do |t|
-    t.string "fullname"
-    t.string "email"
-    t.bigint "groupe_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["groupe_id"], name: "index_authors_on_groupe_id"
+    t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
     t.bigint "article_id", null: false
     t.text "body"
-    t.bigint "author_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["article_id"], name: "index_comments_on_article_id"
-    t.index ["author_id"], name: "index_comments_on_author_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "groupes", force: :cascade do |t|
@@ -89,13 +80,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_084957) do
     t.index ["resource_location_id"], name: "index_resources_on_resource_location_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "fullname"
+    t.string "email"
+    t.bigint "groupe_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["groupe_id"], name: "index_users_on_groupe_id"
+  end
+
   add_foreign_key "articles", "article_categories"
-  add_foreign_key "articles", "authors"
   add_foreign_key "articles", "resources"
-  add_foreign_key "authors", "groupes"
+  add_foreign_key "articles", "users"
   add_foreign_key "comments", "articles"
-  add_foreign_key "comments", "authors"
-  add_foreign_key "resources", "authors", column: "reference_person_id"
+  add_foreign_key "comments", "users"
   add_foreign_key "resources", "resource_categories"
   add_foreign_key "resources", "resource_locations"
+  add_foreign_key "resources", "users", column: "reference_person_id"
+  add_foreign_key "users", "groupes"
 end
